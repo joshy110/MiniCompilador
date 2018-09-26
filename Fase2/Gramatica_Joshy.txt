@@ -1,0 +1,171 @@
+compiler yoshi.
+units Uinclude,Ugenera,ValConst,ValExp,RegArray,Proc,ValCond.
+
+sets
+ letra   = 'A'..'Z'+'a'..'z'+'_'.
+ digito  = '0'..'9'.
+ charset = chr(32)..chr(254).
+
+tokens
+
+      numero   = digito  digito* .
+      caracter = '"' charset '"' | ''' charset '''.
+      id       = letra (letra|digito)*  check.
+
+      "=","<>","<",">",">=","<=" Left.
+      "+","-","OR"               Left.
+      "*","AND","MOD","DIV"      Left.
+      'NOT'                      Right.
+
+ keywords
+   'PROGRAM',"INCLUDE",'CONST','TYPE','VAR','RECORD','ARRAY','OF','PROCEDURE',
+   'FUNCTION','IF',"THEN",'ELSE','FOR','TO','WHILE','DO','EXIT','END',
+   'CASE','BREAK','DOWNTO'.
+
+   Comments '(*' TO '*)' comentario.
+
+Productions
+
+  <Programa>     -> 'PROGRAM' id <M11> ';' <Bloque> <M2> '.'.
+
+  <M11>          -> �   {Encabezado}.
+
+  <M2>           -> �   {FinPrograma}.
+
+  <Bloque>       -> <Declaracion> <Bloque_Compuesto>.
+
+  <Declaracion>  -> <Declaracion> <Definicion_Decl>
+                 |  <Definicion_Decl>.
+
+  <Definicion_Decl> -> <Decl_Constante>
+                    |  <Decl_Tipos>
+                    |  <Decl_Var>
+                    |  <Decl_Proc>
+                    |  <Decl_Func>
+                    |  <Decl_Include>
+                    |  �.
+
+  <Bloque_Compuesto> -> '{' <M16> <Lista_Proposicion> '}'   {FinNivel}.
+
+  <M16>             -> �   {NombreProc}.
+
+  <Decl_Constante>  -> 'CONST' <Lista_Constante>.
+
+  <Lista_Constante> -> <Lista_Constante> <Def_Constante>
+                    |  <Def_Constante>.
+
+  <Def_Constante>   -> id <M3> '=' <Exp_Constante> ';'   {AsignaValConst}.
+
+  <M3>              -> �    {IdConst}.
+
+ 
+  <ParamFormal>     -> <ParamVar> <M5> <Lista_id> ':' id <M8>   {AsignaTipoParam}.
+
+  <M8>              -> �   {TipoNombrado}.
+
+  <ParamVar>        -> 'VAR'   {ParamValor}
+                    |  �       {ParamReference}.
+
+  <Decl_Func>       -> 'FUNCTION' id <M7> <Parametros> <M12> ':' id <M8> <M9> ';' <Bloque>.
+
+  <M7>              -> �   {InitFunc}.
+
+  <M9>              -> �   {AsignaTipoFunc}.
+
+  <Decl_Include>    -> 'INCLUDE' '<' id <M1> '>'.
+
+  <M1>              -> �         {Include}.
+
+  <Lista_Proposicion> -> <Lista_Proposicion> ';' <Proposicion>
+                      |  <Proposicion>.
+
+  <Proposicion>     -> <Prop_Asignacion>
+                    |  <Proc_Llamada>
+                    |  <Prop_If>
+                    |  <Prop_Case>
+                    |  <Prop_While>
+                    |  <Prop_For>
+                    |  'EXIT''WHILE'   {Exit_While}
+                    |  'EXIT''FOR'     {Exit_For}
+                    |  �.
+
+  <Prop_Asignacion> -> <Variable> <M13> ':=' <Expresion>   {VAsignacion}
+                    |  id <M17> ':=' <Expresion>           {VAsignacion}.
+
+  <M17>             -> �   {IdVariable}.
+
+  <M13>             -> �   {InitVarsExp}.
+
+  <Proc_Llamada>    -> id <M18> <ProcParam>   {LlamadaProc}.
+
+  <M18>             -> �   {IdLlamadaProc}.
+
+  <ProcParam>       -> '(' <Lista_ParamReal> ')'
+                    |  �.
+
+  <M20>             -> �   {InicioElse}.
+
+  <Prop_Case>       -> 'CASE' <Expresion> <M28> 'DO' <Lista_OpcionCase> <ElseCase> 'END' 'CASE'   {FinCase}.
+
+  <M28>             -> �   {ExpCase}.
+
+  <Lista_OpcionCase> -> <Lista_OpcionCase> <OpcionCase>
+                     |  <OpcionCase>.
+
+  <OpcionCase>      -> <Exp_Constante> <M29> ':' <Lista_Proposicion> 'BREAK' ';'   {FinOpcionCase}.
+
+  <M29>             -> �   {OpcionCase}.
+
+  <ElseCase>        -> 'ELSE' <Lista_Proposicion> 'BREAK' ';'
+                    |  �.
+
+  <Prop_While>      -> <M21> 'WHILE' <Condicion> <M22> 'DO' <Lista_Proposicion> 'END' 'WHILE'   {FinWhile}.
+
+  <M21>             -> �   {InicioWhile}.
+
+  <M22>             -> �   {DoWhile}.
+
+  <Prop_For>        -> 'FOR' id <M17> ':=' <Expresion> <M23> <For_Direc> <Expresion> <M24> 'DO'
+                       <Lista_Proposicion> 'END' 'FOR'  {FinFor}.
+
+  <M23>             -> �   {VAsignacion}.
+
+  <M24>             -> �   {DoFor}.
+
+  <For_Direc>       -> 'TO'       {IncFor}
+                    |  'DOWNTO'   {DecFor}.
+
+ 
+
+  <Expresion>       -> '-' <Expresion>                {MenosValExp}
+                    |  '+' <Expresion>
+                    |  <Expresion> '+'  <Expresion>   {SumaExp}
+                    |  <Expresion> '-'  <Expresion>   {RestaExp}
+                    |  <Expresion> '*'  <Expresion>   {MultExp}
+                    |  <Expresion> 'MOD'<Expresion>   {ModuloExp}
+                    |  <Expresion> 'DIV'<Expresion>   {DivisionExp}
+                    |  '(' <Expresion> ')'
+                    |  <Variable>
+                    |  <Func_Llamada>
+                    |  id                             {ValIdExp}
+                    |  Caracter                       {ValCharExp}
+                    |  Numero                         {ValNumExp}.
+
+  <Variable>        -> <Tipo_Variable> '.' <M14> <Variable>
+                    |  <Tipo_Variable>   {AsignaDesp}.
+
+  <M14>             -> �   {IncRefVar}.
+
+  <Tipo_Variable>   -> id                             {IdCampo}
+                    |  id <M15> '[' <Dimension> ']'   {RefArreglo}.
+
+  <M15>             -> �   {IdArreglo}.
+
+  <Dimension>       -> '-' <Dimension>  {MenosDimension}
+                    |  '+' <Dimension>
+                    |  numero           {ValNumDimension}
+                    |  id               {ValIdDimension}.
+
+  <Start> = <Programa>.
+
+End.

@@ -1,0 +1,52 @@
+Tokens
+	letra { 'A'..'Z'+'a'..'z'+'_' } 
+	digito { '0'..'9' } 
+	charset { chr(32)..chr(254) } 
+	 Token 1 =  letra (letra | digito)* {
+	23 = 'public'
+	24 = 'class'
+	25 = 'int'
+	26 = 'char'
+	27 = 'void'
+	28 = 'const'
+	29 = 'do'
+	30 = 'else'
+	31 = 'for'
+	32 = 'if'
+	33 = 'default'
+	34 = 'ref'
+	35 = 'return'
+	36 = 'switch'
+	37 = 'case'
+	38 = 'while'
+	39 = 'null'
+	40 = 'break'}  ;
+	 Token 2 =  digito+ ;
+	 Token 3 =  ''' letra ''' | ''' digito ''' ;
+	 Token 4 = '+'	 ;
+	 Token 5 = '-'	 ;
+	 Token 6 = '&''&'	 ;
+	 Token 7 = '|''|'	 ;
+	 Token 8 = '>'	 ;
+	 Token 9 = '>''='	 ;
+	 Token 10 = '<'	 ;
+	 Token 11 = '<''='	 ;
+	 Token 12 = '!''='	 ;
+	 Token 13 = '=''='	 ;
+	 Token 14 = '='	 ;
+	 Token 15 = '!'	 ;
+	 Token 16 = '/'	 ;
+	 Token 17 = '*'	 ;
+	 Token 18 = '%'	 ;
+	 Token 19 = '+''+'	 ;
+	 Token 20 = '-''-'	 ;
+	 Token 21 = '.'	 ;
+	 Token 22 = ','	 ;
+	 Token 43 = '{'	 ;
+	 Token 44 = '}'	 ;
+	 Token 45 = '('	 ;
+	 Token 46 = ')'	 ;
+	 Token 47 = ';'	 ;
+	 Token 48 = ':'	 ;
+END
+Error = 49

@@ -1,0 +1,262 @@
+######################################################################################################################################################
+TABLA DE TOKENS
+------------------------------------------------------------------------------------------------------------------------------------------------------
+	NUMERO TOKEN                  	|	SÍMBOLO TOKEN                 	|	PRECEDENCIA                   	|	ASOCIATIVIDAD                 	|
+------------------------------------------------------------------------------------------------------------------------------------------------------
+	1                             	|	identificador                 	|	.                             	|	no existe asociatividad       	|
+	2                             	|	numero                        	|	.                             	|	no existe asociatividad       	|
+	3                             	|	caracter                      	|	.                             	|	no existe asociatividad       	|
+	4                             	|	'+'                           	|	1                             	|	left                          	|
+	5                             	|	'-'                           	|	1                             	|	left                          	|
+	6                             	|	'&&'                          	|	1                             	|	left                          	|
+	7                             	|	'||'                          	|	1                             	|	left                          	|
+	8                             	|	'>'                           	|	1                             	|	left                          	|
+	9                             	|	'>='                          	|	1                             	|	left                          	|
+	10                            	|	'<'                           	|	1                             	|	left                          	|
+	11                            	|	'<='                          	|	1                             	|	left                          	|
+	12                            	|	'!='                          	|	1                             	|	left                          	|
+	13                            	|	'=='                          	|	1                             	|	left                          	|
+	14                            	|	'='                           	|	1                             	|	left                          	|
+	15                            	|	'!'                           	|	1                             	|	left                          	|
+	16                            	|	'/'                           	|	2                             	|	left                          	|
+	17                            	|	'*'                           	|	2                             	|	left                          	|
+	18                            	|	'%'                           	|	2                             	|	left                          	|
+	19                            	|	'++'                          	|	3                             	|	left                          	|
+	20                            	|	'--'                          	|	3                             	|	left                          	|
+	21                            	|	'.'                           	|	4                             	|	no existe asociatividad       	|
+	22                            	|	','                           	|	4                             	|	no existe asociatividad       	|
+	23                            	|	'public'                      	|	.                             	|	no existe asociatividad       	|
+	24                            	|	'class'                       	|	.                             	|	no existe asociatividad       	|
+	25                            	|	'int'                         	|	.                             	|	no existe asociatividad       	|
+	26                            	|	'char'                        	|	.                             	|	no existe asociatividad       	|
+	27                            	|	'void'                        	|	.                             	|	no existe asociatividad       	|
+	28                            	|	'const'                       	|	.                             	|	no existe asociatividad       	|
+	29                            	|	'do'                          	|	.                             	|	no existe asociatividad       	|
+	30                            	|	'else'                        	|	.                             	|	no existe asociatividad       	|
+	31                            	|	'for'                         	|	.                             	|	no existe asociatividad       	|
+	32                            	|	'if'                          	|	.                             	|	no existe asociatividad       	|
+	33                            	|	'default'                     	|	.                             	|	no existe asociatividad       	|
+	34                            	|	'ref'                         	|	.                             	|	no existe asociatividad       	|
+	35                            	|	'return'                      	|	.                             	|	no existe asociatividad       	|
+	36                            	|	'switch'                      	|	.                             	|	no existe asociatividad       	|
+	37                            	|	'case'                        	|	.                             	|	no existe asociatividad       	|
+	38                            	|	'while'                       	|	.                             	|	no existe asociatividad       	|
+	39                            	|	'null'                        	|	.                             	|	no existe asociatividad       	|
+	40                            	|	'break'                       	|	.                             	|	no existe asociatividad       	|
+	41                            	|	/*                            	|	.                             	|	no existe asociatividad       	|
+	42                            	|	*/                            	|	.                             	|	no existe asociatividad       	|
+	43                            	|	'{'                           	|	.                             	|	no existe asociatividad       	|
+	44                            	|	'}'                           	|	.                             	|	no existe asociatividad       	|
+	45                            	|	'('                           	|	.                             	|	no existe asociatividad       	|
+	46                            	|	')'                           	|	.                             	|	no existe asociatividad       	|
+	47                            	|	';'                           	|	.                             	|	no existe asociatividad       	|
+######################################################################################################################################################
+TABLA NO TERMINALES
+------------------------------------------------------------------------------------------------------------------------------------------------------
+	NUMERO NO TERMINAL            	|	NO TERMINAL                   	|	FIRST                         	|	PRODUCCIÓN                    	|
+------------------------------------------------------------------------------------------------------------------------------------------------------
+	1                             	|	<start>                       	|	['public']                    	|	1                             	|
+	2                             	|	<program>                     	|	['public']                    	|	2                             	|
+	3                             	|	<m2>                          	|	[ ɛ ]                         	|	3                             	|
+	4                             	|	<metodos>                     	|	['public']                    	|	5                             	|
+	5                             	|	<m3>                          	|	[ ɛ ]                         	|	4                             	|
+	6                             	|	<method_declaration>          	|	['public']                    	|	7                             	|
+	7                             	|	<method_header>               	|	['public']                    	|	8                             	|
+	8                             	|	<method_body>                 	|	['{']                         	|	19                            	|
+	9                             	|	<return_type>                 	|	['void'] -> ['int'] -> ['char'] 	|	9                             	|
+	10                            	|	<formal_parameter_list>       	|	[ ɛ ] ->['int'] -> ['char']   	|	13                            	|
+	11                            	|	<type>                        	|	['int'] -> ['char']           	|	11                            	|
+	12                            	|	<fixed_parameters>            	|	['int'] -> ['char']           	|	16                            	|
+	13                            	|	<fixed_parameter>             	|	['int'] -> ['char']           	|	18                            	|
+	14                            	|	<block>                       	|	['{']                         	|	20                            	|
+	15                            	|	<statement_list>              	|	[ ɛ ] ->['int'] -> ['char'] -> ['const'] -> [';'] -> ['if'] -> ['switch'] -> ['break'] -> ['return'] -> ['while'] -> ['do'] -> ['for'] -> ['+'] -> ['-'] -> [caracter] -> [numero] -> [identificador] -> ['('] 	|	21                            	|
+	16                            	|	<statement>                   	|	[ ɛ ] ->['int'] -> ['char'] -> ['const'] -> [';'] -> ['if'] -> ['switch'] -> ['break'] -> ['return'] -> ['while'] -> ['do'] -> ['for'] -> ['+'] -> ['-'] -> [caracter] -> [numero] -> [identificador] -> ['('] 	|	24                            	|
+	17                            	|	<declaration_statement>       	|	['int'] -> ['char'] -> ['const'] 	|	27                            	|
+	18                            	|	<embedded_statement>          	|	[ ɛ ] ->[';'] -> ['if'] -> ['switch'] -> ['break'] -> ['return'] -> ['while'] -> ['do'] -> ['for'] -> ['+'] -> ['-'] -> [caracter] -> [numero] -> [identificador] -> ['('] 	|	29                            	|
+	19                            	|	<local_variable_declaration>  	|	['int'] -> ['char']           	|	35                            	|
+	20                            	|	<local_constant_declaration>  	|	['const']                     	|	40                            	|
+	21                            	|	<empty_statement>             	|	[';']                         	|	45                            	|
+	22                            	|	<expression_statement>        	|	['+'] -> ['-'] -> [caracter] -> [numero] -> [identificador] -> ['('] 	|	48                            	|
+	23                            	|	<selection_statement>         	|	['if'] -> ['switch']          	|	46                            	|
+	24                            	|	<jump_statement>              	|	['break'] -> ['return']       	|	126                           	|
+	25                            	|	<iteration_statement>         	|	['while'] -> ['do'] -> ['for'] 	|	111                           	|
+	26                            	|	<local_variable_declarators>  	|	[identificador]               	|	36                            	|
+	27                            	|	<local_variable_declarator>   	|	[identificador]               	|	38                            	|
+	28                            	|	<local_variable_initializer>  	|	['+'] -> ['-'] -> [caracter] -> [numero] -> [identificador] -> ['('] 	|	53                            	|
+	29                            	|	<constant_declarators>        	|	[identificador]               	|	41                            	|
+	30                            	|	<constant_declarator>         	|	[identificador]               	|	43                            	|
+	31                            	|	<constant_expression>         	|	['+'] -> ['-'] -> [caracter] -> [numero] -> [identificador] -> ['('] 	|	44                            	|
+	32                            	|	<expression>                  	|	['+'] -> ['-'] -> [caracter] -> [numero] -> [identificador] -> ['('] 	|	60                            	|
+	33                            	|	<if_statement>                	|	['if']                        	|	54                            	|
+	34                            	|	<switch_statement>            	|	['switch']                    	|	56                            	|
+	35                            	|	<statement_expression>        	|	['+'] -> ['-'] -> [caracter] -> [numero] -> [identificador] -> ['('] 	|	49                            	|
+	36                            	|	<invocation_expression>       	|	[caracter] -> [numero] -> [identificador] -> ['('] 	|	57                            	|
+	37                            	|	<assigment>                   	|	['+'] -> ['-'] -> [caracter] -> [numero] -> [identificador] -> ['('] 	|	58                            	|
+	38                            	|	<post_increment_expression>   	|	[caracter] -> [numero] -> [identificador] -> ['('] 	|	66                            	|
+	39                            	|	<post_decrement_expression>   	|	[caracter] -> [numero] -> [identificador] -> ['('] 	|	70                            	|
+	40                            	|	<boolean_expression>          	|	['+'] -> ['-'] -> [caracter] -> [numero] -> [identificador] -> ['('] 	|	62                            	|
+	41                            	|	<switch_block>                	|	['{']                         	|	82                            	|
+	42                            	|	<primary_expression>          	|	[caracter] -> [numero] -> [identificador] -> ['('] 	|	71                            	|
+	43                            	|	<argument_listopt>            	|	[ ɛ ] ->[','] -> ['+'] -> ['-'] -> [caracter] -> [numero] -> [identificador] -> ['('] 	|	67                            	|
+	44                            	|	<unary_expression>            	|	['+'] -> ['-'] -> [caracter] -> [numero] -> [identificador] -> ['('] 	|	63                            	|
+	45                            	|	<assigment_operator>          	|	['=']                         	|	59                            	|
+	46                            	|	<conditional_or_expression>   	|	['+'] -> ['-'] -> [caracter] -> [numero] -> [identificador] -> ['('] 	|	83                            	|
+	47                            	|	<argument>                    	|	['+'] -> ['-'] -> [caracter] -> [numero] -> [identificador] -> ['('] 	|	87                            	|
+	48                            	|	<primary_no_array_creation_expression>	|	[caracter] -> [numero] -> [identificador] -> ['('] 	|	72                            	|
+	49                            	|	<literales>                   	|	[caracter] -> [numero]        	|	78                            	|
+	50                            	|	<simple_name>                 	|	[identificador]               	|	80                            	|
+	51                            	|	<parenthesized_expression>    	|	['(']                         	|	81                            	|
+	52                            	|	<switch_sectionsopt>          	|	[ ɛ ] ->['case'] -> ['default'] 	|	88                            	|
+	53                            	|	<conditional_and_expression>  	|	['+'] -> ['-'] -> [caracter] -> [numero] -> [identificador] -> ['('] 	|	85                            	|
+	54                            	|	<equality_expression>         	|	['+'] -> ['-'] -> [caracter] -> [numero] -> [identificador] -> ['('] 	|	91                            	|
+	55                            	|	<switch_section>              	|	['case'] -> ['default']       	|	106                           	|
+	56                            	|	<relational_expression>       	|	['+'] -> ['-'] -> [caracter] -> [numero] -> [identificador] -> ['('] 	|	94                            	|
+	57                            	|	<additive_expression>         	|	['+'] -> ['-'] -> [caracter] -> [numero] -> [identificador] -> ['('] 	|	99                            	|
+	58                            	|	<multiplicative_expression>   	|	['+'] -> ['-'] -> [caracter] -> [numero] -> [identificador] -> ['('] 	|	102                           	|
+	59                            	|	<switch_labels>               	|	['case'] -> ['default']       	|	107                           	|
+	60                            	|	<switch_label>                	|	['case'] -> ['default']       	|	109                           	|
+	61                            	|	<while_statement>             	|	['while']                     	|	114                           	|
+	62                            	|	<do_statement>                	|	['do']                        	|	115                           	|
+	63                            	|	<for_statement>               	|	['for']                       	|	116                           	|
+	64                            	|	<for_initializeropt>          	|	['int'] -> ['char'] -> [ ɛ ] ->['+'] -> ['-'] -> [caracter] -> [numero] -> [identificador] -> ['('] 	|	117                           	|
+	65                            	|	<for_conditionopt>            	|	[ ɛ ] ->['+'] -> ['-'] -> [caracter] -> [numero] -> [identificador] -> ['('] 	|	120                           	|
+	66                            	|	<for_iteratoropt>             	|	[ ɛ ] ->['+'] -> ['-'] -> [caracter] -> [numero] -> [identificador] -> ['('] 	|	122                           	|
+	67                            	|	<statement_expression_list>   	|	['+'] -> ['-'] -> [caracter] -> [numero] -> [identificador] -> ['('] 	|	124                           	|
+	68                            	|	<break_statement>             	|	['break']                     	|	128                           	|
+	69                            	|	<return_statement>            	|	['return']                    	|	129                           	|
+######################################################################################################################################################
+TABLA DE PRODUCCIONES
+------------------------------------------------------------------------------------------------------------------------------------------------------
+	PRODUCCIÓN                    	|	LONGITUD                      	|	SIGUIENTE PRODUCCIÓN          	|	ELEMENTOS                     	|
+------------------------------------------------------------------------------------------------------------------------------------------------------
+	1                             	|	1                             	|	0                             	|	[<program>]                   	|
+	2                             	|	8                             	|	0                             	|	['public'] -> ['class'] -> [identificador] -> [<m2>] -> ['{'] -> [<metodos>] -> ['}'] -> [<m3>] 	|
+	3                             	|	0                             	|	0                             	|	[ ɛ ]                         	|
+	4                             	|	0                             	|	0                             	|	[ ɛ ]                         	|
+	5                             	|	1                             	|	6                             	|	[<method_declaration>]        	|
+	6                             	|	2                             	|	0                             	|	[<metodos>] -> [<method_declaration>] 	|
+	7                             	|	2                             	|	0                             	|	[<method_header>] -> [<method_body>] 	|
+	8                             	|	6                             	|	0                             	|	['public'] -> [<return_type>] -> [identificador] -> ['('] -> [<formal_parameter_list>] -> [')'] 	|
+	9                             	|	1                             	|	10                            	|	[<type>]                      	|
+	10                            	|	1                             	|	0                             	|	['void']                      	|
+	11                            	|	1                             	|	12                            	|	['int']                       	|
+	12                            	|	1                             	|	0                             	|	['char']                      	|
+	13                            	|	1                             	|	14                            	|	[<fixed_parameters>]          	|
+	14                            	|	3                             	|	15                            	|	[<fixed_parameters>] -> [','] -> [<formal_parameter_list>] 	|
+	15                            	|	0                             	|	0                             	|	[ ɛ ]                         	|
+	16                            	|	1                             	|	17                            	|	[<fixed_parameter>]           	|
+	17                            	|	3                             	|	0                             	|	[<fixed_parameters>] -> [','] -> [<fixed_parameter>] 	|
+	18                            	|	2                             	|	0                             	|	[<type>] -> [identificador]   	|
+	19                            	|	1                             	|	0                             	|	[<block>]                     	|
+	20                            	|	3                             	|	0                             	|	['{'] -> [<statement_list>] -> ['}'] 	|
+	21                            	|	1                             	|	22                            	|	[<statement>]                 	|
+	22                            	|	2                             	|	23                            	|	[<statement_list>] -> [<statement>] 	|
+	23                            	|	0                             	|	0                             	|	[ ɛ ]                         	|
+	24                            	|	2                             	|	25                            	|	[<statement>] -> [<declaration_statement>] 	|
+	25                            	|	2                             	|	26                            	|	[<statement>] -> [<embedded_statement>] 	|
+	26                            	|	0                             	|	0                             	|	[ ɛ ]                         	|
+	27                            	|	2                             	|	28                            	|	[<local_variable_declaration>] -> [';'] 	|
+	28                            	|	2                             	|	0                             	|	[<local_constant_declaration>] -> [';'] 	|
+	29                            	|	1                             	|	30                            	|	[<empty_statement>]           	|
+	30                            	|	1                             	|	31                            	|	[<expression_statement>]      	|
+	31                            	|	1                             	|	32                            	|	[<selection_statement>]       	|
+	32                            	|	1                             	|	33                            	|	[<jump_statement>]            	|
+	33                            	|	1                             	|	34                            	|	[<iteration_statement>]       	|
+	34                            	|	0                             	|	0                             	|	[ ɛ ]                         	|
+	35                            	|	2                             	|	0                             	|	[<type>] -> [<local_variable_declarators>] 	|
+	36                            	|	1                             	|	37                            	|	[<local_variable_declarator>] 	|
+	37                            	|	3                             	|	0                             	|	[<local_variable_declarators>] -> [','] -> [<local_variable_declarator>] 	|
+	38                            	|	1                             	|	39                            	|	[identificador]               	|
+	39                            	|	3                             	|	0                             	|	[identificador] -> ['='] -> [<local_variable_initializer>] 	|
+	40                            	|	3                             	|	0                             	|	['const'] -> [<type>] -> [<constant_declarators>] 	|
+	41                            	|	1                             	|	42                            	|	[<constant_declarator>]       	|
+	42                            	|	3                             	|	0                             	|	[<constant_declarators>] -> [','] -> [<constant_declarator>] 	|
+	43                            	|	3                             	|	0                             	|	[identificador] -> ['='] -> [<constant_expression>] 	|
+	44                            	|	1                             	|	0                             	|	[<expression>]                	|
+	45                            	|	1                             	|	0                             	|	[';']                         	|
+	46                            	|	1                             	|	47                            	|	[<if_statement>]              	|
+	47                            	|	1                             	|	0                             	|	[<switch_statement>]          	|
+	48                            	|	2                             	|	0                             	|	[<statement_expression>] -> [';'] 	|
+	49                            	|	1                             	|	50                            	|	[<invocation_expression>]     	|
+	50                            	|	1                             	|	51                            	|	[<assigment>]                 	|
+	51                            	|	1                             	|	52                            	|	[<post_increment_expression>] 	|
+	52                            	|	1                             	|	0                             	|	[<post_decrement_expression>] 	|
+	53                            	|	1                             	|	0                             	|	[<expression>]                	|
+	54                            	|	7                             	|	55                            	|	['if'] -> ['('] -> [<boolean_expression>] -> [')'] -> ['{'] -> [<statement>] -> ['}'] 	|
+	55                            	|	11                            	|	0                             	|	['if'] -> ['('] -> [<boolean_expression>] -> [')'] -> ['{'] -> [<statement>] -> ['}'] -> ['else'] -> ['{'] -> [<statement>] -> ['}'] 	|
+	56                            	|	5                             	|	0                             	|	['switch'] -> ['('] -> [<expression>] -> [')'] -> [<switch_block>] 	|
+	57                            	|	4                             	|	0                             	|	[<primary_expression>] -> ['('] -> [<argument_listopt>] -> [')'] 	|
+	58                            	|	3                             	|	0                             	|	[<unary_expression>] -> [<assigment_operator>] -> [<expression>] 	|
+	59                            	|	1                             	|	0                             	|	['=']                         	|
+	60                            	|	1                             	|	61                            	|	[<conditional_or_expression>] 	|
+	61                            	|	1                             	|	0                             	|	[<assigment>]                 	|
+	62                            	|	1                             	|	0                             	|	[<expression>]                	|
+	63                            	|	1                             	|	64                            	|	[<primary_expression>]        	|
+	64                            	|	2                             	|	65                            	|	['+'] -> [<unary_expression>] 	|
+	65                            	|	2                             	|	0                             	|	['-'] -> [<unary_expression>] 	|
+	66                            	|	2                             	|	0                             	|	[<primary_expression>] -> ['++'] 	|
+	67                            	|	1                             	|	68                            	|	[<argument>]                  	|
+	68                            	|	3                             	|	69                            	|	[<argument_listopt>] -> [','] -> [<argument>] 	|
+	69                            	|	0                             	|	0                             	|	[ ɛ ]                         	|
+	70                            	|	2                             	|	0                             	|	[<primary_expression>] -> ['--'] 	|
+	71                            	|	1                             	|	0                             	|	[<primary_no_array_creation_expression>] 	|
+	72                            	|	1                             	|	73                            	|	[<literales>]                 	|
+	73                            	|	1                             	|	74                            	|	[<simple_name>]               	|
+	74                            	|	1                             	|	75                            	|	[<parenthesized_expression>]  	|
+	75                            	|	1                             	|	76                            	|	[<invocation_expression>]     	|
+	76                            	|	1                             	|	77                            	|	[<post_increment_expression>] 	|
+	77                            	|	1                             	|	0                             	|	[<post_decrement_expression>] 	|
+	78                            	|	1                             	|	79                            	|	[caracter]                    	|
+	79                            	|	1                             	|	0                             	|	[numero]                      	|
+	80                            	|	1                             	|	0                             	|	[identificador]               	|
+	81                            	|	3                             	|	0                             	|	['('] -> [<expression>] -> [')'] 	|
+	82                            	|	3                             	|	0                             	|	['{'] -> [<switch_sectionsopt>] -> ['}'] 	|
+	83                            	|	1                             	|	84                            	|	[<conditional_and_expression>] 	|
+	84                            	|	3                             	|	0                             	|	[<conditional_or_expression>] -> ['||'] -> [<conditional_and_expression>] 	|
+	85                            	|	1                             	|	86                            	|	[<equality_expression>]       	|
+	86                            	|	3                             	|	0                             	|	[<conditional_and_expression>] -> ['&&'] -> [<equality_expression>] 	|
+	87                            	|	1                             	|	0                             	|	[<expression>]                	|
+	88                            	|	1                             	|	89                            	|	[<switch_section>]            	|
+	89                            	|	2                             	|	90                            	|	[<switch_sectionsopt>] -> [<switch_section>] 	|
+	90                            	|	0                             	|	0                             	|	[ ɛ ]                         	|
+	91                            	|	1                             	|	92                            	|	[<relational_expression>]     	|
+	92                            	|	3                             	|	93                            	|	[<equality_expression>] -> ['=='] -> [<relational_expression>] 	|
+	93                            	|	3                             	|	0                             	|	[<equality_expression>] -> ['!='] -> [<relational_expression>] 	|
+	94                            	|	1                             	|	95                            	|	[<additive_expression>]       	|
+	95                            	|	3                             	|	96                            	|	[<relational_expression>] -> ['<'] -> [<additive_expression>] 	|
+	96                            	|	3                             	|	97                            	|	[<relational_expression>] -> ['>'] -> [<additive_expression>] 	|
+	97                            	|	3                             	|	98                            	|	[<relational_expression>] -> ['<='] -> [<additive_expression>] 	|
+	98                            	|	3                             	|	0                             	|	[<relational_expression>] -> ['>='] -> [<additive_expression>] 	|
+	99                            	|	1                             	|	100                           	|	[<multiplicative_expression>] 	|
+	100                           	|	3                             	|	101                           	|	[<additive_expression>] -> ['+'] -> [<multiplicative_expression>] 	|
+	101                           	|	3                             	|	0                             	|	[<additive_expression>] -> ['-'] -> [<multiplicative_expression>] 	|
+	102                           	|	1                             	|	103                           	|	[<unary_expression>]          	|
+	103                           	|	3                             	|	104                           	|	[<multiplicative_expression>] -> ['*'] -> [<unary_expression>] 	|
+	104                           	|	3                             	|	105                           	|	[<multiplicative_expression>] -> ['/'] -> [<unary_expression>] 	|
+	105                           	|	3                             	|	0                             	|	[<multiplicative_expression>] -> ['%'] -> [<unary_expression>] 	|
+	106                           	|	2                             	|	0                             	|	[<switch_labels>] -> [<statement_list>] 	|
+	107                           	|	1                             	|	108                           	|	[<switch_label>]              	|
+	108                           	|	2                             	|	0                             	|	[<switch_labels>] -> [<switch_label>] 	|
+	109                           	|	3                             	|	110                           	|	['case'] -> [<constant_expression>] -> [':'] 	|
+	110                           	|	2                             	|	0                             	|	['default'] -> [':']          	|
+	111                           	|	1                             	|	112                           	|	[<while_statement>]           	|
+	112                           	|	1                             	|	113                           	|	[<do_statement>]              	|
+	113                           	|	1                             	|	0                             	|	[<for_statement>]             	|
+	114                           	|	7                             	|	0                             	|	['while'] -> ['('] -> [<boolean_expression>] -> [')'] -> ['{'] -> [<statement>] -> ['}'] 	|
+	115                           	|	9                             	|	0                             	|	['do'] -> ['{'] -> [<statement>] -> ['}'] -> ['while'] -> ['('] -> [<boolean_expression>] -> [')'] -> [';'] 	|
+	116                           	|	11                            	|	0                             	|	['for'] -> ['('] -> [<for_initializeropt>] -> [';'] -> [<for_conditionopt>] -> [';'] -> [<for_iteratoropt>] -> [')'] -> ['{'] -> [<statement>] -> ['}'] 	|
+	117                           	|	1                             	|	118                           	|	[<local_variable_declaration>] 	|
+	118                           	|	1                             	|	119                           	|	[<statement_expression_list>] 	|
+	119                           	|	0                             	|	0                             	|	[ ɛ ]                         	|
+	120                           	|	1                             	|	121                           	|	[<boolean_expression>]        	|
+	121                           	|	0                             	|	0                             	|	[ ɛ ]                         	|
+	122                           	|	1                             	|	123                           	|	[<statement_expression_list>] 	|
+	123                           	|	0                             	|	0                             	|	[ ɛ ]                         	|
+	124                           	|	1                             	|	125                           	|	[<statement_expression>]      	|
+	125                           	|	3                             	|	0                             	|	[<statement_expression_list>] -> [','] -> [<statement_expression>] 	|
+	126                           	|	1                             	|	127                           	|	[<break_statement>]           	|
+	127                           	|	1                             	|	0                             	|	[<return_statement>]          	|
+	128                           	|	2                             	|	0                             	|	['break'] -> [';']            	|
+	129                           	|	2                             	|	0                             	|	['return'] -> [<expressionopt>] 	|
+	130                           	|	1                             	|	131                           	|	[<expression>]                	|
+######################################################################################################################################################
